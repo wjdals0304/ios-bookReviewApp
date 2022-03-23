@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import SnapKit
+import Kingfisher
 
 final class ReviewWriteViewController : UIViewController {
     private lazy var presenter = ReviewWritePresenter(viewController: self)
@@ -17,14 +18,15 @@ final class ReviewWriteViewController : UIViewController {
         button.setTitleColor(.tertiaryLabel, for: .normal)
         button.contentHorizontalAlignment = .left
         button.titleLabel?.font = .systemFont(ofSize: 23.0,weight: .bold)
-        
+        button.addTarget(self, action: #selector(didTapBookTitleButton), for: .touchUpInside)
         return button
     }()
+    
     
     private lazy var contentsTextView: UITextView = {
         let textView = UITextView()
         textView.textColor = .tertiaryLabel
-        textView.text = "내용을 입력해주세요"
+        textView.text = presenter.contentsTextViewPlaceHolderText
         textView.font = .systemFont(ofSize: 16.0, weight: .medium)
         textView.delegate = self
         return textView
@@ -112,6 +114,17 @@ extension ReviewWriteViewController: ReviewWriteProtocol {
         
     }
     
+    func presentToSearchBookViewController() {
+        let vc = UINavigationController(rootViewController: SearchBookViewController(searchBookDelegate: presenter))
+        present(vc, animated: true)
+    }
+    
+    func updateViews(title: String, imageURL: URL?) {
+        bookTitleButton.setTitle(title, for: .normal)
+        bookTitleButton.setTitleColor(.label, for: .normal)
+        imageView.kf.setImage(with: imageURL)
+    }
+    
 }
 
 
@@ -120,6 +133,11 @@ private extension ReviewWriteViewController {
         presenter.didTapLeftBarButton()
     }
     @objc func didTapRightBarButton() {
-        presenter.didTapRightBarButton()
+        presenter.didTapRightBarButton(contentsText: contentsTextView.text)
     }
+    
+    @objc func didTapBookTitleButton() {
+        presenter.didTapBookTitleButton()
+    }
+
 }
