@@ -18,13 +18,16 @@ protocol ReviewListProtocol {
 
 final class ReviewListPresenter: NSObject{
     private let viewController: ReviewListProtocol
-    private let userDefaultManager = UserDefaultManager()
- 
+    private let userDefaultManager: UserDefaultManagerProtocol
+    
     private var review: [BookReview] = []
     
     
-    init(viewController: ReviewListProtocol) {
+    init(viewController: ReviewListProtocol
+         ,userDefaultManager : UserDefaultManagerProtocol = UserDefaultManager()
+    ) {
         self.viewController = viewController
+        self.userDefaultManager = userDefaultManager
     }
     
     func viewDidLoad() {
