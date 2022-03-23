@@ -5,7 +5,7 @@
 
 
 # 사용요소 
--XCText, MVP, Snapkit, Alamofire 
+-XCTest, MVP, Snapkit, Alamofire 
 
 # 새로 배운 내용 
 
