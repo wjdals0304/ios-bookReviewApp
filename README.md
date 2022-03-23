@@ -117,7 +117,7 @@ class ReviewListPresenterTests: XCTestCase {
    
 ```
 
-- Protocol Text 
+- Protocol Test 
 
 ```Swift 
 
